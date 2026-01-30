@@ -1,0 +1,326 @@
+[
+  {
+    "photo_id": "photo-001",
+    "tags": ["family", "2024", "birthday"],
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-01-15T10:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-1",
+    "dropbox_url": "https://picsum.photos/seed/birthday1/800/600",
+    "dropbox_metadata": {
+      "name": "IMG_001.jpg",
+      "size": 2048000,
+      "client_modified": "2024-01-15T10:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "abc123duplicatehash",
+    "file_size": 2048000,
+    "source": ["Dropbox", "Google Photos"]
+  },
+  {
+    "photo_id": "photo-002",
+    "tags": ["family", "2024", "birthday"],
+    "created_at": "2024-01-15T10:31:00Z",
+    "updated_at": "2024-01-15T10:31:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-google-file-1",
+    "dropbox_url": "https://picsum.photos/seed/birthday1/800/600",
+    "dropbox_metadata": {
+      "name": "IMG_001.jpg",
+      "size": 2048000,
+      "client_modified": "2024-01-15T10:00:00Z",
+      "source": "Google Photos"
+    },
+    "hash": "abc123duplicatehash",
+    "file_size": 2048000,
+    "source": ["Google Photos", "Dropbox"]
+  },
+  {
+    "photo_id": "photo-003",
+    "tags": ["vacation", "2024", "beach", "summer"],
+    "created_at": "2024-06-20T14:22:00Z",
+    "updated_at": "2024-06-20T14:22:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-3",
+    "dropbox_url": "https://picsum.photos/seed/beach-sunset/800/600",
+    "dropbox_metadata": {
+      "name": "Beach_Sunset.jpg",
+      "size": 3145728,
+      "client_modified": "2024-06-20T14:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "xyz789uniquehash",
+    "file_size": 3145728,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-004",
+    "tags": ["family", "2024", "christmas", "holidays"],
+    "created_at": "2024-12-25T09:15:00Z",
+    "updated_at": "2024-12-25T09:15:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-4",
+    "dropbox_url": "https://picsum.photos/seed/christmas-morning/800/600",
+    "dropbox_metadata": {
+      "name": "Christmas_Morning.jpg",
+      "size": 2621440,
+      "client_modified": "2024-12-25T09:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "def456uniquehash",
+    "file_size": 2621440,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-005",
+    "tags": ["vacation", "2024", "mountains", "summer"],
+    "created_at": "2024-08-10T16:45:00Z",
+    "updated_at": "2024-08-10T16:45:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-5",
+    "dropbox_url": "https://picsum.photos/seed/mountain-hike/800/600",
+    "dropbox_metadata": {
+      "name": "Mountain_Hike.jpg",
+      "size": 2800000,
+      "client_modified": "2024-08-10T16:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "ghi789uniquehash",
+    "file_size": 2800000,
+    "source": ["Dropbox", "iCloud"]
+  },
+  {
+    "photo_id": "photo-006",
+    "tags": ["pets", "2024"],
+    "created_at": "2024-03-05T11:20:00Z",
+    "updated_at": "2024-03-05T11:20:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-6",
+    "dropbox_url": "https://picsum.photos/seed/dog-portrait/800/600",
+    "dropbox_metadata": {
+      "name": "Dog_Portrait.jpg",
+      "size": 1900000,
+      "client_modified": "2024-03-05T11:15:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "jkl012uniquehash",
+    "file_size": 1900000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-007",
+    "tags": ["vacation", "2024", "beach", "summer"],
+    "created_at": "2024-06-21T10:15:00Z",
+    "updated_at": "2024-06-21T10:15:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-7",
+    "dropbox_url": "https://picsum.photos/seed/beach-umbrella/800/600",
+    "dropbox_metadata": {
+      "name": "Beach_Umbrella.jpg",
+      "size": 2900000,
+      "client_modified": "2024-06-21T10:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "mno345uniquehash",
+    "file_size": 2900000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-008",
+    "tags": ["vacation", "2024", "beach", "summer"],
+    "created_at": "2024-06-21T10:16:00Z",
+    "updated_at": "2024-06-21T10:16:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-google-file-2",
+    "dropbox_url": "https://picsum.photos/seed/beach-umbrella/800/600",
+    "dropbox_metadata": {
+      "name": "Beach_Umbrella.jpg",
+      "size": 2900000,
+      "client_modified": "2024-06-21T10:00:00Z",
+      "source": "Google Photos"
+    },
+    "hash": "mno345uniquehash",
+    "file_size": 2900000,
+    "source": ["Google Photos"]
+  },
+  {
+    "photo_id": "photo-009",
+    "tags": ["family", "2023", "thanksgiving", "holidays"],
+    "created_at": "2023-11-23T15:30:00Z",
+    "updated_at": "2023-11-23T15:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-9",
+    "dropbox_url": "https://picsum.photos/seed/thanksgiving-dinner/800/600",
+    "dropbox_metadata": {
+      "name": "Thanksgiving_2023.jpg",
+      "size": 2700000,
+      "client_modified": "2023-11-23T15:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "pqr678uniquehash",
+    "file_size": 2700000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-010",
+    "tags": ["vacation", "2023", "city", "travel"],
+    "created_at": "2023-09-10T12:45:00Z",
+    "updated_at": "2023-09-10T12:45:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-10",
+    "dropbox_url": "https://picsum.photos/seed/city-skyline/800/600",
+    "dropbox_metadata": {
+      "name": "Paris_Tower.jpg",
+      "size": 3200000,
+      "client_modified": "2023-09-10T12:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "stu901uniquehash",
+    "file_size": 3200000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-011",
+    "tags": ["family", "2024", "wedding"],
+    "created_at": "2024-05-15T17:00:00Z",
+    "updated_at": "2024-05-15T17:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-11",
+    "dropbox_url": "https://picsum.photos/seed/wedding-ceremony/800/600",
+    "dropbox_metadata": {
+      "name": "Wedding_Ceremony.jpg",
+      "size": 3500000,
+      "client_modified": "2024-05-15T16:45:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "vwx234uniquehash",
+    "file_size": 3500000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-012",
+    "tags": ["family", "2024", "wedding"],
+    "created_at": "2024-05-15T17:01:00Z",
+    "updated_at": "2024-05-15T17:01:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-google-file-3",
+    "dropbox_url": "https://picsum.photos/seed/wedding-ceremony/800/600",
+    "dropbox_metadata": {
+      "name": "Wedding_Ceremony.jpg",
+      "size": 3500000,
+      "client_modified": "2024-05-15T16:45:00Z",
+      "source": "Google Photos"
+    },
+    "hash": "vwx234uniquehash",
+    "file_size": 3500000,
+    "source": ["Google Photos"]
+  },
+  {
+    "photo_id": "photo-013",
+    "tags": ["pets", "2024", "outdoor"],
+    "created_at": "2024-04-20T14:30:00Z",
+    "updated_at": "2024-04-20T14:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-13",
+    "dropbox_url": "https://picsum.photos/seed/dog-park/800/600",
+    "dropbox_metadata": {
+      "name": "Dog_Park.jpg",
+      "size": 2100000,
+      "client_modified": "2024-04-20T14:15:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "yza567uniquehash",
+    "file_size": 2100000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-014",
+    "tags": ["family", "2024", "birthday", "kids"],
+    "created_at": "2024-07-08T16:20:00Z",
+    "updated_at": "2024-07-08T16:20:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-14",
+    "dropbox_url": "https://picsum.photos/seed/kids-birthday/800/600",
+    "dropbox_metadata": {
+      "name": "Kids_Birthday_Party.jpg",
+      "size": 2600000,
+      "client_modified": "2024-07-08T16:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "bcd890uniquehash",
+    "file_size": 2600000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-015",
+    "tags": ["vacation", "2023", "winter", "skiing"],
+    "created_at": "2023-12-28T11:45:00Z",
+    "updated_at": "2023-12-28T11:45:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-15",
+    "dropbox_url": "https://picsum.photos/seed/ski-slopes/800/600",
+    "dropbox_metadata": {
+      "name": "Ski_Slopes.jpg",
+      "size": 3100000,
+      "client_modified": "2023-12-28T11:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "efg123uniquehash",
+    "file_size": 3100000,
+    "source": ["Dropbox", "Amazon Photos"]
+  },
+  {
+    "photo_id": "photo-016",
+    "tags": ["food", "2024", "restaurant"],
+    "created_at": "2024-02-14T19:30:00Z",
+    "updated_at": "2024-02-14T19:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-16",
+    "dropbox_url": "https://picsum.photos/seed/restaurant-food/800/600",
+    "dropbox_metadata": {
+      "name": "Valentine_Dinner.jpg",
+      "size": 2200000,
+      "client_modified": "2024-02-14T19:15:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "hij456uniquehash",
+    "file_size": 2200000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-017",
+    "tags": ["nature", "2024", "garden", "spring"],
+    "created_at": "2024-04-05T09:00:00Z",
+    "updated_at": "2024-04-05T09:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-17",
+    "dropbox_url": "https://picsum.photos/seed/spring-flowers/800/600",
+    "dropbox_metadata": {
+      "name": "Spring_Garden.jpg",
+      "size": 2500000,
+      "client_modified": "2024-04-05T08:45:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "klm789uniquehash",
+    "file_size": 2500000,
+    "source": ["Dropbox"]
+  },
+  {
+    "photo_id": "photo-018",
+    "tags": ["family", "2024", "graduation"],
+    "created_at": "2024-06-10T14:00:00Z",
+    "updated_at": "2024-06-10T14:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-18",
+    "dropbox_url": "https://picsum.photos/seed/graduation-day/800/600",
+    "dropbox_metadata": {
+      "name": "Graduation_Day.jpg",
+      "size": 2800000,
+      "client_modified": "2024-06-10T13:45:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "nop012uniquehash",
+    "file_size": 2800000,
+    "source": ["Dropbox"]
+  }
+]

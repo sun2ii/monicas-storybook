@@ -1,0 +1,11 @@
+[
+  {
+    "user_id": "user-001",
+    "email": "user@example.com",
+    "name": "John Doe",
+    "dropbox_access_token": null,
+    "dropbox_refresh_token": null,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "collection_id": "coll-001",
+    "user_id": "user-001",
+    "name": "Birthday Party 2024",
+    "photo_ids": ["photo-001", "photo-002"],
+    "tags": ["birthday", "2024"],
+    "created_at": "2024-01-16T12:00:00Z",
+    "updated_at": "2024-01-16T12:00:00Z",
+    "type": "album"
+  },
+  {
+    "collection_id": "coll-002",
+    "user_id": "user-001",
+    "name": "Summer Vacation",
+    "photo_ids": ["photo-003", "photo-005"],
+    "tags": ["vacation", "2024", "summer"],
+    "created_at": "2024-06-21T08:30:00Z",
+    "updated_at": "2024-06-21T08:30:00Z",
+    "type": "album"
+  },
+  {
+    "collection_id": "coll-003",
+    "user_id": "user-001",
+    "name": "Holiday Scrapbook",
+    "photo_ids": ["photo-004"],
+    "tags": ["christmas", "2024"],
+    "created_at": "2024-12-26T10:00:00Z",
+    "updated_at": "2024-12-26T10:00:00Z",
+    "type": "scrapbook"
+  }
+]
