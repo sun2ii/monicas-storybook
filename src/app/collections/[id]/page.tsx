@@ -236,14 +236,12 @@ export default function CollectionDetailPage({
             </div>
 
             <div className="flex gap-3">
-              {collection.type === 'album' && (
-                <Link
-                  href={`/scrapbook/${collection.collection_id}`}
-                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  View as Scrapbook
-                </Link>
-              )}
+              <Link
+                href={`/scrapbook/${collection.collection_id}`}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                View as Scrapbook
+              </Link>
               <button
                 onClick={handleDelete}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"

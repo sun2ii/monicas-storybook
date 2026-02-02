@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Photo } from '@/lib/types/photo';
 import DuplicateList from '@/components/duplicates/DuplicateList';
+import Navigation from '@/components/Navigation';
 
 export default function DuplicatesPage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -48,40 +49,7 @@ export default function DuplicatesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <Link
-                href="/viewer"
-                className="text-sm text-blue-600 hover:text-blue-800 mb-2 inline-block"
-              >
-                ← Back to viewer
-              </Link>
-              <h1 className="text-3xl font-bold text-gray-900">Duplicate Detection</h1>
-              <p className="text-gray-600 mt-1">
-                Find and manage duplicate photos across your storage
-              </p>
-            </div>
-
-            <div className="flex gap-4">
-              <Link
-                href="/viewer"
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Photo Viewer
-              </Link>
-              <Link
-                href="/collections"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Create Album
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

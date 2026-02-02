@@ -33,12 +33,13 @@ export default function FilterBar({
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-3">Filters</h2>
       <div className="flex flex-wrap gap-4 items-center">
         {/* Tag Filter */}
         <div className="relative">
           <button
             onClick={() => setIsTagDropdownOpen(!isTagDropdownOpen)}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2 text-gray-900 font-medium"
           >
             <span>Tags</span>
             {selectedTags.length > 0 && (
@@ -81,7 +82,7 @@ export default function FilterBar({
                         onChange={() => handleTagToggle(tag)}
                         className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
                       />
-                      <span className="text-sm">{tag}</span>
+                      <span className="text-sm text-gray-900 font-medium">{tag}</span>
                     </label>
                   ))}
                 </div>
@@ -98,17 +99,17 @@ export default function FilterBar({
             onChange={(e) =>
               onDateRangeChange({ ...dateRange, start: e.target.value })
             }
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 font-medium"
             placeholder="Start date"
           />
-          <span className="text-gray-700 font-medium">to</span>
+          <span className="text-gray-900 font-semibold">to</span>
           <input
             type="date"
             value={dateRange.end}
             onChange={(e) =>
               onDateRangeChange({ ...dateRange, end: e.target.value })
             }
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 font-medium"
             placeholder="End date"
           />
         </div>

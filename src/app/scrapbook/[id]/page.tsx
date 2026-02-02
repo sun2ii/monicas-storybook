@@ -148,9 +148,10 @@ export default function ScrapbookPage({
       </main>
 
       {/* Print Preview Modal */}
-      {showPrintPreview && (
+      {showPrintPreview && collection && (
         <PrintPreview
           pages={pages}
+          collectionName={collection.name}
           onClose={() => setShowPrintPreview(false)}
         />
       )}

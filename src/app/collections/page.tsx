@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Collection } from '@/lib/types/collection';
 import { Photo } from '@/lib/types/photo';
 import CollectionList from '@/components/CollectionList';
+import Navigation from '@/components/Navigation';
 
 export default function CollectionsPage() {
   const [collections, setCollections] = useState<Collection[]>([]);
@@ -82,40 +83,7 @@ export default function CollectionsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <Link
-                href="/"
-                className="text-sm text-blue-600 hover:text-blue-800 mb-2 inline-block"
-              >
-                ← Back to home
-              </Link>
-              <h1 className="text-3xl font-bold text-gray-900">Collections</h1>
-              <p className="text-gray-600 mt-1">
-                {collections.length} {collections.length === 1 ? 'collection' : 'collections'}
-              </p>
-            </div>
-
-            <div className="flex gap-4">
-              <Link
-                href="/viewer"
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Photo Viewer
-              </Link>
-              <Link
-                href="/duplicates"
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Find Duplicates
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

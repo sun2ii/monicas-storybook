@@ -3,7 +3,7 @@
     "collection_id": "coll-001",
     "user_id": "user-001",
     "name": "Birthday Party 2024",
-    "photo_ids": ["photo-001", "photo-002"],
+    "photo_ids": ["photo-001", "photo-014", "photo-031", "photo-032"],
     "tags": ["birthday", "2024"],
     "created_at": "2024-01-16T12:00:00Z",
     "updated_at": "2024-01-16T12:00:00Z",
@@ -22,11 +22,11 @@
   {
     "collection_id": "coll-003",
     "user_id": "user-001",
-    "name": "Holiday Scrapbook",
-    "photo_ids": ["photo-004"],
-    "tags": ["christmas", "2024"],
+    "name": "Our Holiday Season 2024",
+    "photo_ids": ["photo-019", "photo-020", "photo-021", "photo-022", "photo-023", "photo-024", "photo-025", "photo-026", "photo-027", "photo-028", "photo-029", "photo-030"],
+    "tags": ["christmas", "2024", "holidays", "family"],
     "created_at": "2024-12-26T10:00:00Z",
     "updated_at": "2024-12-26T10:00:00Z",
-    "type": "scrapbook"
+    "type": "album"
   }
 ]

@@ -62,14 +62,16 @@ export default function OnboardingHero() {
                 <p className="text-sm text-gray-600 mt-1">All albums</p>
               </div>
 
-              {/* iCloud */}
+              {/* Amazon Photos */}
               <div className="p-6 bg-white rounded-lg shadow-md border-2 border-transparent hover:border-indigo-400 transition-all cursor-pointer">
-                <div className="w-16 h-16 mx-auto mb-3 bg-gray-700 rounded-lg flex items-center justify-center">
-                  <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.1 13.2c0-2.6 2-4.5 4.5-4.5-1.1-1.6-2.9-2.5-4.9-2.5-2.1 0-3.8 1.1-4.8 1.1-1 0-2.5-1.1-4.2-1.1C5.5 6.2 2.5 8.7 2.5 13.5c0 2.8 1 5.7 2.3 7.6 1.2 1.7 2.2 2.9 3.7 2.9 1.5 0 2-.9 3.8-.9 1.8 0 2.2.9 3.8.9 1.6 0 2.7-1.4 3.7-2.9.7-1.1 1-1.6 1.5-2.8-3.3-1.3-3.8-6.2-.2-7.1z"/>
-                  </svg>
+                <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+                  <img
+                    src="/icons/amazon-photos.png"
+                    alt="Amazon Photos"
+                    className="w-16 h-16"
+                  />
                 </div>
-                <p className="font-semibold text-gray-900">iCloud</p>
+                <p className="font-semibold text-gray-900">Amazon Photos</p>
                 <p className="text-sm text-gray-600 mt-1">Photo library</p>
               </div>
             </div>

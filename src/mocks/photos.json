@@ -1,326 +1,1074 @@
 [
   {
     "photo_id": "photo-001",
-    "tags": ["family", "2024", "birthday"],
+    "tags": [
+      "family",
+      "2024",
+      "birthday"
+    ],
     "created_at": "2024-01-15T10:30:00Z",
     "updated_at": "2024-01-15T10:30:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-1",
-    "dropbox_url": "https://picsum.photos/seed/birthday1/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-001",
+    "dropbox_url": "https://picsum.photos/seed/cake-celebration/800/600",
     "dropbox_metadata": {
-      "name": "IMG_001.jpg",
+      "name": "Birthday_Cake.jpg",
       "size": 2048000,
-      "client_modified": "2024-01-15T10:00:00Z",
+      "client_modified": "2024-01-15T10:30:00Z",
       "source": "Dropbox"
     },
-    "hash": "abc123duplicatehash",
+    "hash": "abc123uniquehash",
     "file_size": 2048000,
-    "source": ["Dropbox", "Google Photos"]
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
   },
   {
-    "photo_id": "photo-002",
-    "tags": ["family", "2024", "birthday"],
-    "created_at": "2024-01-15T10:31:00Z",
-    "updated_at": "2024-01-15T10:31:00Z",
+    "photo_id": "photo-014",
+    "tags": [
+      "family",
+      "2024",
+      "birthday"
+    ],
+    "created_at": "2024-02-20T14:00:00Z",
+    "updated_at": "2024-02-20T14:00:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-google-file-1",
-    "dropbox_url": "https://picsum.photos/seed/birthday1/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-014",
+    "dropbox_url": "https://picsum.photos/seed/party-balloons/600/800",
     "dropbox_metadata": {
-      "name": "IMG_001.jpg",
-      "size": 2048000,
-      "client_modified": "2024-01-15T10:00:00Z",
-      "source": "Google Photos"
+      "name": "Birthday_Party.jpg",
+      "size": 2500000,
+      "client_modified": "2024-02-20T14:00:00Z",
+      "source": "Dropbox"
     },
-    "hash": "abc123duplicatehash",
-    "file_size": 2048000,
-    "source": ["Google Photos", "Dropbox"]
+    "hash": "def456uniquehash",
+    "file_size": 2500000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-031",
+    "tags": [
+      "family",
+      "2024",
+      "birthday",
+      "kids"
+    ],
+    "created_at": "2024-03-20T15:30:00Z",
+    "updated_at": "2024-03-20T15:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-031",
+    "dropbox_url": "https://picsum.photos/seed/baby-celebration/800/800",
+    "dropbox_metadata": {
+      "name": "Baby_First_Birthday.jpg",
+      "size": 2500000,
+      "client_modified": "2024-03-20T15:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "abc234uniquehash",
+    "file_size": 2500000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
   },
   {
     "photo_id": "photo-003",
-    "tags": ["vacation", "2024", "beach", "summer"],
+    "tags": [
+      "vacation",
+      "2024",
+      "beach",
+      "summer"
+    ],
     "created_at": "2024-06-20T14:22:00Z",
     "updated_at": "2024-06-20T14:22:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-3",
-    "dropbox_url": "https://picsum.photos/seed/beach-sunset/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-003",
+    "dropbox_url": "https://picsum.photos/seed/beach-sunset/1000/600",
     "dropbox_metadata": {
       "name": "Beach_Sunset.jpg",
       "size": 3145728,
-      "client_modified": "2024-06-20T14:00:00Z",
+      "client_modified": "2024-06-20T14:22:00Z",
       "source": "Dropbox"
     },
     "hash": "xyz789uniquehash",
     "file_size": 3145728,
-    "source": ["Dropbox"]
-  },
-  {
-    "photo_id": "photo-004",
-    "tags": ["family", "2024", "christmas", "holidays"],
-    "created_at": "2024-12-25T09:15:00Z",
-    "updated_at": "2024-12-25T09:15:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-4",
-    "dropbox_url": "https://picsum.photos/seed/christmas-morning/800/600",
-    "dropbox_metadata": {
-      "name": "Christmas_Morning.jpg",
-      "size": 2621440,
-      "client_modified": "2024-12-25T09:00:00Z",
-      "source": "Dropbox"
-    },
-    "hash": "def456uniquehash",
-    "file_size": 2621440,
-    "source": ["Dropbox"]
-  },
-  {
-    "photo_id": "photo-005",
-    "tags": ["vacation", "2024", "mountains", "summer"],
-    "created_at": "2024-08-10T16:45:00Z",
-    "updated_at": "2024-08-10T16:45:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-5",
-    "dropbox_url": "https://picsum.photos/seed/mountain-hike/800/600",
-    "dropbox_metadata": {
-      "name": "Mountain_Hike.jpg",
-      "size": 2800000,
-      "client_modified": "2024-08-10T16:30:00Z",
-      "source": "Dropbox"
-    },
-    "hash": "ghi789uniquehash",
-    "file_size": 2800000,
-    "source": ["Dropbox", "iCloud"]
-  },
-  {
-    "photo_id": "photo-006",
-    "tags": ["pets", "2024"],
-    "created_at": "2024-03-05T11:20:00Z",
-    "updated_at": "2024-03-05T11:20:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-6",
-    "dropbox_url": "https://picsum.photos/seed/dog-portrait/800/600",
-    "dropbox_metadata": {
-      "name": "Dog_Portrait.jpg",
-      "size": 1900000,
-      "client_modified": "2024-03-05T11:15:00Z",
-      "source": "Dropbox"
-    },
-    "hash": "jkl012uniquehash",
-    "file_size": 1900000,
-    "source": ["Dropbox"]
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
   },
   {
     "photo_id": "photo-007",
-    "tags": ["vacation", "2024", "beach", "summer"],
+    "tags": [
+      "vacation",
+      "2024",
+      "beach",
+      "summer"
+    ],
     "created_at": "2024-06-21T10:15:00Z",
     "updated_at": "2024-06-21T10:15:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-7",
-    "dropbox_url": "https://picsum.photos/seed/beach-umbrella/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-007",
+    "dropbox_url": "https://picsum.photos/seed/beach-walk/600/1000",
     "dropbox_metadata": {
-      "name": "Beach_Umbrella.jpg",
-      "size": 2900000,
-      "client_modified": "2024-06-21T10:00:00Z",
+      "name": "Beach_Walk.jpg",
+      "size": 2890000,
+      "client_modified": "2024-06-21T10:15:00Z",
       "source": "Dropbox"
     },
-    "hash": "mno345uniquehash",
-    "file_size": 2900000,
-    "source": ["Dropbox"]
+    "hash": "ghi012duplicatebeach",
+    "file_size": 2890000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 1000
   },
   {
     "photo_id": "photo-008",
-    "tags": ["vacation", "2024", "beach", "summer"],
+    "tags": [
+      "vacation",
+      "2024",
+      "beach",
+      "summer"
+    ],
     "created_at": "2024-06-21T10:16:00Z",
     "updated_at": "2024-06-21T10:16:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-google-file-2",
-    "dropbox_url": "https://picsum.photos/seed/beach-umbrella/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-008",
+    "dropbox_url": "https://picsum.photos/seed/beach-walk/900/600",
     "dropbox_metadata": {
-      "name": "Beach_Umbrella.jpg",
-      "size": 2900000,
-      "client_modified": "2024-06-21T10:00:00Z",
-      "source": "Google Photos"
-    },
-    "hash": "mno345uniquehash",
-    "file_size": 2900000,
-    "source": ["Google Photos"]
-  },
-  {
-    "photo_id": "photo-009",
-    "tags": ["family", "2023", "thanksgiving", "holidays"],
-    "created_at": "2023-11-23T15:30:00Z",
-    "updated_at": "2023-11-23T15:30:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-9",
-    "dropbox_url": "https://picsum.photos/seed/thanksgiving-dinner/800/600",
-    "dropbox_metadata": {
-      "name": "Thanksgiving_2023.jpg",
-      "size": 2700000,
-      "client_modified": "2023-11-23T15:00:00Z",
+      "name": "Beach_Walk.jpg",
+      "size": 2890000,
+      "client_modified": "2024-06-21T10:16:00Z",
       "source": "Dropbox"
     },
-    "hash": "pqr678uniquehash",
-    "file_size": 2700000,
-    "source": ["Dropbox"]
+    "hash": "ghi012duplicatebeach",
+    "file_size": 2890000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 900,
+    "height": 600
   },
   {
-    "photo_id": "photo-010",
-    "tags": ["vacation", "2023", "city", "travel"],
-    "created_at": "2023-09-10T12:45:00Z",
-    "updated_at": "2023-09-10T12:45:00Z",
+    "photo_id": "photo-004",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays"
+    ],
+    "created_at": "2024-12-25T09:15:00Z",
+    "updated_at": "2024-12-25T09:15:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-10",
-    "dropbox_url": "https://picsum.photos/seed/city-skyline/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-004",
+    "dropbox_url": "https://picsum.photos/seed/christmas-tree-morning/800/600",
     "dropbox_metadata": {
-      "name": "Paris_Tower.jpg",
-      "size": 3200000,
-      "client_modified": "2023-09-10T12:30:00Z",
+      "name": "Christmas_Morning.jpg",
+      "size": 2621440,
+      "client_modified": "2024-12-25T09:15:00Z",
       "source": "Dropbox"
     },
-    "hash": "stu901uniquehash",
-    "file_size": 3200000,
-    "source": ["Dropbox"]
+    "hash": "jkl345uniquehash",
+    "file_size": 2621440,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
   },
   {
-    "photo_id": "photo-011",
-    "tags": ["family", "2024", "wedding"],
-    "created_at": "2024-05-15T17:00:00Z",
-    "updated_at": "2024-05-15T17:00:00Z",
+    "photo_id": "photo-019",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "decorating"
+    ],
+    "created_at": "2024-12-01T14:30:00Z",
+    "updated_at": "2024-12-01T14:30:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-11",
-    "dropbox_url": "https://picsum.photos/seed/wedding-ceremony/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-019",
+    "dropbox_url": "https://picsum.photos/seed/decorating-tree/600/800",
     "dropbox_metadata": {
-      "name": "Wedding_Ceremony.jpg",
-      "size": 3500000,
-      "client_modified": "2024-05-15T16:45:00Z",
+      "name": "Tree_Decorating.jpg",
+      "size": 2950000,
+      "client_modified": "2024-12-01T14:30:00Z",
       "source": "Dropbox"
     },
-    "hash": "vwx234uniquehash",
-    "file_size": 3500000,
-    "source": ["Dropbox"]
+    "hash": "qrs678uniquehash",
+    "file_size": 2950000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
   },
   {
-    "photo_id": "photo-012",
-    "tags": ["family", "2024", "wedding"],
-    "created_at": "2024-05-15T17:01:00Z",
-    "updated_at": "2024-05-15T17:01:00Z",
+    "photo_id": "photo-020",
+    "tags": [
+      "home",
+      "2024",
+      "christmas",
+      "holidays",
+      "decorating"
+    ],
+    "created_at": "2024-12-01T18:45:00Z",
+    "updated_at": "2024-12-01T18:45:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-google-file-3",
-    "dropbox_url": "https://picsum.photos/seed/wedding-ceremony/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-020",
+    "dropbox_url": "https://picsum.photos/seed/christmas-lights-house/800/800",
     "dropbox_metadata": {
-      "name": "Wedding_Ceremony.jpg",
-      "size": 3500000,
-      "client_modified": "2024-05-15T16:45:00Z",
-      "source": "Google Photos"
-    },
-    "hash": "vwx234uniquehash",
-    "file_size": 3500000,
-    "source": ["Google Photos"]
-  },
-  {
-    "photo_id": "photo-013",
-    "tags": ["pets", "2024", "outdoor"],
-    "created_at": "2024-04-20T14:30:00Z",
-    "updated_at": "2024-04-20T14:30:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-13",
-    "dropbox_url": "https://picsum.photos/seed/dog-park/800/600",
-    "dropbox_metadata": {
-      "name": "Dog_Park.jpg",
-      "size": 2100000,
-      "client_modified": "2024-04-20T14:15:00Z",
-      "source": "Dropbox"
-    },
-    "hash": "yza567uniquehash",
-    "file_size": 2100000,
-    "source": ["Dropbox"]
-  },
-  {
-    "photo_id": "photo-014",
-    "tags": ["family", "2024", "birthday", "kids"],
-    "created_at": "2024-07-08T16:20:00Z",
-    "updated_at": "2024-07-08T16:20:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-14",
-    "dropbox_url": "https://picsum.photos/seed/kids-birthday/800/600",
-    "dropbox_metadata": {
-      "name": "Kids_Birthday_Party.jpg",
-      "size": 2600000,
-      "client_modified": "2024-07-08T16:00:00Z",
-      "source": "Dropbox"
-    },
-    "hash": "bcd890uniquehash",
-    "file_size": 2600000,
-    "source": ["Dropbox"]
-  },
-  {
-    "photo_id": "photo-015",
-    "tags": ["vacation", "2023", "winter", "skiing"],
-    "created_at": "2023-12-28T11:45:00Z",
-    "updated_at": "2023-12-28T11:45:00Z",
-    "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-15",
-    "dropbox_url": "https://picsum.photos/seed/ski-slopes/800/600",
-    "dropbox_metadata": {
-      "name": "Ski_Slopes.jpg",
+      "name": "Christmas_Lights.jpg",
       "size": 3100000,
-      "client_modified": "2023-12-28T11:30:00Z",
+      "client_modified": "2024-12-01T18:45:00Z",
       "source": "Dropbox"
     },
-    "hash": "efg123uniquehash",
+    "hash": "tuv901uniquehash",
     "file_size": 3100000,
-    "source": ["Dropbox", "Amazon Photos"]
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
   },
   {
-    "photo_id": "photo-016",
-    "tags": ["food", "2024", "restaurant"],
-    "created_at": "2024-02-14T19:30:00Z",
-    "updated_at": "2024-02-14T19:30:00Z",
+    "photo_id": "photo-021",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "baking"
+    ],
+    "created_at": "2024-12-10T15:20:00Z",
+    "updated_at": "2024-12-10T15:20:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-16",
-    "dropbox_url": "https://picsum.photos/seed/restaurant-food/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-021",
+    "dropbox_url": "https://picsum.photos/seed/cookies-baking/1000/600",
     "dropbox_metadata": {
-      "name": "Valentine_Dinner.jpg",
-      "size": 2200000,
-      "client_modified": "2024-02-14T19:15:00Z",
+      "name": "Baking_Cookies.jpg",
+      "size": 2650000,
+      "client_modified": "2024-12-10T15:20:00Z",
       "source": "Dropbox"
     },
-    "hash": "hij456uniquehash",
-    "file_size": 2200000,
-    "source": ["Dropbox"]
+    "hash": "wxy234uniquehash",
+    "file_size": 2650000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-022",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "baking",
+      "kids"
+    ],
+    "created_at": "2024-12-10T16:10:00Z",
+    "updated_at": "2024-12-10T16:10:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-022",
+    "dropbox_url": "https://picsum.photos/seed/decorating-cookies-kids/600/1000",
+    "dropbox_metadata": {
+      "name": "Cookie_Decorating.jpg",
+      "size": 2850000,
+      "client_modified": "2024-12-10T16:10:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "zab567uniquehash",
+    "file_size": 2850000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 1000
+  },
+  {
+    "photo_id": "photo-023",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "baking"
+    ],
+    "created_at": "2024-12-12T14:00:00Z",
+    "updated_at": "2024-12-12T14:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-023",
+    "dropbox_url": "https://picsum.photos/seed/gingerbread-house/900/600",
+    "dropbox_metadata": {
+      "name": "Gingerbread_House.jpg",
+      "size": 2750000,
+      "client_modified": "2024-12-12T14:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "cde890uniquehash",
+    "file_size": 2750000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 900,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-024",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "dinner"
+    ],
+    "created_at": "2024-12-24T17:30:00Z",
+    "updated_at": "2024-12-24T17:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-024",
+    "dropbox_url": "https://picsum.photos/seed/holiday-table-setting/800/600",
+    "dropbox_metadata": {
+      "name": "Christmas_Eve_Table.jpg",
+      "size": 3200000,
+      "client_modified": "2024-12-24T17:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "fgh123uniquehash",
+    "file_size": 3200000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-025",
+    "tags": [
+      "home",
+      "2024",
+      "christmas",
+      "holidays"
+    ],
+    "created_at": "2024-12-24T20:00:00Z",
+    "updated_at": "2024-12-24T20:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-025",
+    "dropbox_url": "https://picsum.photos/seed/christmas-stockings/600/800",
+    "dropbox_metadata": {
+      "name": "Stockings_Hung.jpg",
+      "size": 2450000,
+      "client_modified": "2024-12-24T20:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "ijk456uniquehash",
+    "file_size": 2450000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-026",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "gifts"
+    ],
+    "created_at": "2024-12-25T07:30:00Z",
+    "updated_at": "2024-12-25T07:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-026",
+    "dropbox_url": "https://picsum.photos/seed/tree-presents-underneath/800/800",
+    "dropbox_metadata": {
+      "name": "Christmas_Morning_Tree.jpg",
+      "size": 3050000,
+      "client_modified": "2024-12-25T07:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "lmn789uniquehash",
+    "file_size": 3050000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-027",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "kids",
+      "gifts"
+    ],
+    "created_at": "2024-12-25T08:00:00Z",
+    "updated_at": "2024-12-25T08:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-027",
+    "dropbox_url": "https://picsum.photos/seed/opening-gifts-kids/1000/600",
+    "dropbox_metadata": {
+      "name": "Opening_Presents.jpg",
+      "size": 2900000,
+      "client_modified": "2024-12-25T08:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "opq012uniquehash",
+    "file_size": 2900000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-028",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays"
+    ],
+    "created_at": "2024-12-25T09:30:00Z",
+    "updated_at": "2024-12-25T09:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-028",
+    "dropbox_url": "https://picsum.photos/seed/family-christmas-portrait/600/1000",
+    "dropbox_metadata": {
+      "name": "Family_Christmas.jpg",
+      "size": 2800000,
+      "client_modified": "2024-12-25T09:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "rst345uniquehash",
+    "file_size": 2800000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 1000
+  },
+  {
+    "photo_id": "photo-029",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays",
+      "dinner",
+      "food"
+    ],
+    "created_at": "2024-12-25T18:30:00Z",
+    "updated_at": "2024-12-25T18:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-029",
+    "dropbox_url": "https://picsum.photos/seed/holiday-dinner-feast/900/600",
+    "dropbox_metadata": {
+      "name": "Christmas_Dinner.jpg",
+      "size": 3400000,
+      "client_modified": "2024-12-25T18:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "uvw678uniquehash",
+    "file_size": 3400000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 900,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-030",
+    "tags": [
+      "family",
+      "2024",
+      "christmas",
+      "holidays"
+    ],
+    "created_at": "2024-12-26T19:00:00Z",
+    "updated_at": "2024-12-26T19:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-030",
+    "dropbox_url": "https://picsum.photos/seed/family-board-games/800/600",
+    "dropbox_metadata": {
+      "name": "Board_Games.jpg",
+      "size": 2550000,
+      "client_modified": "2024-12-26T19:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "xyz901uniquehash",
+    "file_size": 2550000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-005",
+    "tags": [
+      "vacation",
+      "2024",
+      "mountains",
+      "summer"
+    ],
+    "created_at": "2024-08-10T16:45:00Z",
+    "updated_at": "2024-08-10T16:45:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-005",
+    "dropbox_url": "https://picsum.photos/seed/mountain-landscape/600/800",
+    "dropbox_metadata": {
+      "name": "Mountain_View.jpg",
+      "size": 2700000,
+      "client_modified": "2024-08-10T16:45:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "mno678uniquehash",
+    "file_size": 2700000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
   },
   {
     "photo_id": "photo-017",
-    "tags": ["nature", "2024", "garden", "spring"],
-    "created_at": "2024-04-05T09:00:00Z",
-    "updated_at": "2024-04-05T09:00:00Z",
+    "tags": [
+      "nature",
+      "2024"
+    ],
+    "created_at": "2024-09-05T13:20:00Z",
+    "updated_at": "2024-09-05T13:20:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-17",
-    "dropbox_url": "https://picsum.photos/seed/spring-flowers/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-017",
+    "dropbox_url": "https://picsum.photos/seed/nature-landscape/800/800",
     "dropbox_metadata": {
-      "name": "Spring_Garden.jpg",
-      "size": 2500000,
-      "client_modified": "2024-04-05T08:45:00Z",
+      "name": "Nature_Landscape.jpg",
+      "size": 2400000,
+      "client_modified": "2024-09-05T13:20:00Z",
       "source": "Dropbox"
     },
-    "hash": "klm789uniquehash",
-    "file_size": 2500000,
-    "source": ["Dropbox"]
+    "hash": "pqr901uniquehash",
+    "file_size": 2400000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-034",
+    "tags": [
+      "nature",
+      "2024",
+      "spring"
+    ],
+    "created_at": "2024-04-20T10:00:00Z",
+    "updated_at": "2024-04-20T10:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-034",
+    "dropbox_url": "https://picsum.photos/seed/spring-flowers-garden/1000/600",
+    "dropbox_metadata": {
+      "name": "Spring_Flowers.jpg",
+      "size": 2300000,
+      "client_modified": "2024-04-20T10:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "jkl123uniquehash",
+    "file_size": 2300000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-040",
+    "tags": [
+      "nature",
+      "2024",
+      "fall"
+    ],
+    "created_at": "2024-10-01T13:20:00Z",
+    "updated_at": "2024-10-01T13:20:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-040",
+    "dropbox_url": "https://picsum.photos/seed/autumn-leaves/600/1000",
+    "dropbox_metadata": {
+      "name": "Fall_Leaves.jpg",
+      "size": 2900000,
+      "client_modified": "2024-10-01T13:20:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "bcd901uniquehash",
+    "file_size": 2900000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 1000
+  },
+  {
+    "photo_id": "photo-006",
+    "tags": [
+      "pets",
+      "2024",
+      "family"
+    ],
+    "created_at": "2024-03-10T11:30:00Z",
+    "updated_at": "2024-03-10T11:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-006",
+    "dropbox_url": "https://picsum.photos/seed/happy-dog-portrait/900/600",
+    "dropbox_metadata": {
+      "name": "Pet_Dog.jpg",
+      "size": 2300000,
+      "client_modified": "2024-03-10T11:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "stu234uniquehash",
+    "file_size": 2300000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 900,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-013",
+    "tags": [
+      "pets",
+      "2024"
+    ],
+    "created_at": "2024-07-22T16:40:00Z",
+    "updated_at": "2024-07-22T16:40:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-013",
+    "dropbox_url": "https://picsum.photos/seed/cat-relaxing/800/600",
+    "dropbox_metadata": {
+      "name": "Pet_Cat.jpg",
+      "size": 2100000,
+      "client_modified": "2024-07-22T16:40:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "vwx567uniquehash",
+    "file_size": 2100000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-016",
+    "tags": [
+      "food",
+      "2024"
+    ],
+    "created_at": "2024-08-15T18:30:00Z",
+    "updated_at": "2024-08-15T18:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-016",
+    "dropbox_url": "https://picsum.photos/seed/food-table-spread/600/800",
+    "dropbox_metadata": {
+      "name": "Food_Table.jpg",
+      "size": 2800000,
+      "client_modified": "2024-08-15T18:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "yza890uniquehash",
+    "file_size": 2800000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-037",
+    "tags": [
+      "family",
+      "2024",
+      "summer",
+      "food"
+    ],
+    "created_at": "2024-07-04T17:00:00Z",
+    "updated_at": "2024-07-04T17:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-037",
+    "dropbox_url": "https://picsum.photos/seed/bbq-grill-party/800/800",
+    "dropbox_metadata": {
+      "name": "BBQ_Party.jpg",
+      "size": 2950000,
+      "client_modified": "2024-07-04T17:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "stu012uniquehash",
+    "file_size": 2950000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-039",
+    "tags": [
+      "food",
+      "2024",
+      "everyday"
+    ],
+    "created_at": "2024-08-05T09:00:00Z",
+    "updated_at": "2024-08-05T09:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-039",
+    "dropbox_url": "https://picsum.photos/seed/coffee-cup-morning/1000/600",
+    "dropbox_metadata": {
+      "name": "Coffee_Morning.jpg",
+      "size": 2300000,
+      "client_modified": "2024-08-05T09:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "yza678uniquehash",
+    "file_size": 2300000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-009",
+    "tags": [
+      "family",
+      "2024",
+      "thanksgiving",
+      "holidays"
+    ],
+    "created_at": "2024-11-28T17:00:00Z",
+    "updated_at": "2024-11-28T17:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-009",
+    "dropbox_url": "https://picsum.photos/seed/thanksgiving-turkey-dinner/600/1000",
+    "dropbox_metadata": {
+      "name": "Thanksgiving_Dinner.jpg",
+      "size": 3000000,
+      "client_modified": "2024-11-28T17:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "bcd123uniquehash",
+    "file_size": 3000000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 1000
+  },
+  {
+    "photo_id": "photo-011",
+    "tags": [
+      "wedding",
+      "2024"
+    ],
+    "created_at": "2024-05-18T15:30:00Z",
+    "updated_at": "2024-05-18T15:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-011",
+    "dropbox_url": "https://picsum.photos/seed/wedding-ceremony/900/600",
+    "dropbox_metadata": {
+      "name": "Wedding_Ceremony.jpg",
+      "size": 2950000,
+      "client_modified": "2024-05-18T15:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "efg456duplicatewedding",
+    "file_size": 2950000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 900,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-012",
+    "tags": [
+      "wedding",
+      "2024"
+    ],
+    "created_at": "2024-05-18T15:31:00Z",
+    "updated_at": "2024-05-18T15:31:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-012",
+    "dropbox_url": "https://picsum.photos/seed/wedding-ceremony/800/600",
+    "dropbox_metadata": {
+      "name": "Wedding_Ceremony.jpg",
+      "size": 2950000,
+      "client_modified": "2024-05-18T15:31:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "efg456duplicatewedding",
+    "file_size": 2950000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-010",
+    "tags": [
+      "travel",
+      "2024"
+    ],
+    "created_at": "2024-04-12T12:00:00Z",
+    "updated_at": "2024-04-12T12:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-010",
+    "dropbox_url": "https://picsum.photos/seed/city-skyline-travel/600/800",
+    "dropbox_metadata": {
+      "name": "City_Travel.jpg",
+      "size": 2600000,
+      "client_modified": "2024-04-12T12:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "hij789uniquehash",
+    "file_size": 2600000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-015",
+    "tags": [
+      "family",
+      "2024"
+    ],
+    "created_at": "2024-08-20T14:30:00Z",
+    "updated_at": "2024-08-20T14:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-015",
+    "dropbox_url": "https://picsum.photos/seed/family-group-photo/800/800",
+    "dropbox_metadata": {
+      "name": "Family_Photo.jpg",
+      "size": 2750000,
+      "client_modified": "2024-08-20T14:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "klm012uniquehash",
+    "file_size": 2750000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-033",
+    "tags": [
+      "family",
+      "2024",
+      "spring",
+      "outdoor"
+    ],
+    "created_at": "2024-04-15T13:30:00Z",
+    "updated_at": "2024-04-15T13:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-033",
+    "dropbox_url": "https://picsum.photos/seed/family-picnic-park/1000/600",
+    "dropbox_metadata": {
+      "name": "Family_Picnic.jpg",
+      "size": 2750000,
+      "client_modified": "2024-04-15T13:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "ghi890uniquehash",
+    "file_size": 2750000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
   },
   {
     "photo_id": "photo-018",
-    "tags": ["family", "2024", "graduation"],
-    "created_at": "2024-06-10T14:00:00Z",
-    "updated_at": "2024-06-10T14:00:00Z",
+    "tags": [
+      "family",
+      "2024",
+      "graduation"
+    ],
+    "created_at": "2024-05-25T16:00:00Z",
+    "updated_at": "2024-05-25T16:00:00Z",
     "owner_id": "user-001",
-    "dropbox_file_id": "id:mock-dropbox-file-18",
-    "dropbox_url": "https://picsum.photos/seed/graduation-day/800/600",
+    "dropbox_file_id": "id:mock-dropbox-file-018",
+    "dropbox_url": "https://picsum.photos/seed/graduation-cap-diploma/600/1000",
     "dropbox_metadata": {
       "name": "Graduation_Day.jpg",
-      "size": 2800000,
-      "client_modified": "2024-06-10T13:45:00Z",
+      "size": 2850000,
+      "client_modified": "2024-05-25T16:00:00Z",
       "source": "Dropbox"
     },
-    "hash": "nop012uniquehash",
-    "file_size": 2800000,
-    "source": ["Dropbox"]
+    "hash": "nop345uniquehash",
+    "file_size": 2850000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 1000
+  },
+  {
+    "photo_id": "photo-032",
+    "tags": [
+      "family",
+      "2024",
+      "kids"
+    ],
+    "created_at": "2024-04-10T14:00:00Z",
+    "updated_at": "2024-04-10T14:00:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-032",
+    "dropbox_url": "https://picsum.photos/seed/kids-playing-outside/900/600",
+    "dropbox_metadata": {
+      "name": "Kids_Playing.jpg",
+      "size": 2400000,
+      "client_modified": "2024-04-10T14:00:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "def567uniquehash",
+    "file_size": 2400000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 900,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-035",
+    "tags": [
+      "kids",
+      "2024",
+      "sports",
+      "spring"
+    ],
+    "created_at": "2024-05-18T14:20:00Z",
+    "updated_at": "2024-05-18T14:20:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-035",
+    "dropbox_url": "https://picsum.photos/seed/kids-soccer-game/800/600",
+    "dropbox_metadata": {
+      "name": "Kids_Soccer.jpg",
+      "size": 2850000,
+      "client_modified": "2024-05-18T14:20:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "mno456uniquehash",
+    "file_size": 2850000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 600
+  },
+  {
+    "photo_id": "photo-036",
+    "tags": [
+      "family",
+      "2024",
+      "summer",
+      "kids",
+      "outdoor"
+    ],
+    "created_at": "2024-06-25T16:30:00Z",
+    "updated_at": "2024-06-25T16:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-036",
+    "dropbox_url": "https://picsum.photos/seed/kids-swimming-pool/600/800",
+    "dropbox_metadata": {
+      "name": "Summer_Pool.jpg",
+      "size": 3100000,
+      "client_modified": "2024-06-25T16:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "pqr789uniquehash",
+    "file_size": 3100000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 600,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-041",
+    "tags": [
+      "family",
+      "2024",
+      "fall",
+      "kids",
+      "outdoor"
+    ],
+    "created_at": "2024-10-15T14:45:00Z",
+    "updated_at": "2024-10-15T14:45:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-041",
+    "dropbox_url": "https://picsum.photos/seed/pumpkin-patch-kids/800/800",
+    "dropbox_metadata": {
+      "name": "Pumpkin_Patch.jpg",
+      "size": 2900000,
+      "client_modified": "2024-10-15T14:45:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "efg234uniquehash",
+    "file_size": 2900000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 800,
+    "height": 800
+  },
+  {
+    "photo_id": "photo-038",
+    "tags": [
+      "home",
+      "2024",
+      "summer",
+      "garden"
+    ],
+    "created_at": "2024-07-15T10:30:00Z",
+    "updated_at": "2024-07-15T10:30:00Z",
+    "owner_id": "user-001",
+    "dropbox_file_id": "id:mock-dropbox-file-038",
+    "dropbox_url": "https://picsum.photos/seed/garden-vegetables-harvest/1000/600",
+    "dropbox_metadata": {
+      "name": "Garden_Harvest.jpg",
+      "size": 2400000,
+      "client_modified": "2024-07-15T10:30:00Z",
+      "source": "Dropbox"
+    },
+    "hash": "vwx345uniquehash",
+    "file_size": 2400000,
+    "source": [
+      "Dropbox"
+    ],
+    "width": 1000,
+    "height": 600
   }
 ]

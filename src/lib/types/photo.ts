@@ -10,6 +10,8 @@ export interface Photo {
   hash?: string;
   file_size?: number;
   source?: string[]; // Array of storage provider names where photo exists ['Dropbox', 'Google Photos', etc.]
+  width?: number;
+  height?: number;
 }
 
 export interface PhotoFilter {

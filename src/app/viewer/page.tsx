@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Photo } from '@/lib/types/photo';
-import PhotoGrid from '@/components/PhotoGrid';
+import MasonryPhotoGrid from '@/components/MasonryPhotoGrid';
 import FilterBar from '@/components/FilterBar';
 import PhotoViewer from '@/components/PhotoViewer';
+import Navigation from '@/components/Navigation';
 
 export default function ViewerPage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -14,6 +14,8 @@ export default function ViewerPage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const photosPerPage = 20;
 
   // Fetch photos
   useEffect(() => {
@@ -55,6 +57,7 @@ export default function ViewerPage() {
     }
 
     setFilteredPhotos(result);
+    setCurrentPage(1); // Reset to page 1 when filters change
   }, [photos, selectedTags, dateRange]);
 
   // Get all unique tags
@@ -88,6 +91,12 @@ export default function ViewerPage() {
     setDateRange({ start: '', end: '' });
   };
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredPhotos.length / photosPerPage);
+  const startIndex = (currentPage - 1) * photosPerPage;
+  const endIndex = startIndex + photosPerPage;
+  const paginatedPhotos = filteredPhotos.slice(startIndex, endIndex);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -101,43 +110,18 @@ export default function ViewerPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <Link
-                href="/"
-                className="text-sm text-blue-600 hover:text-blue-800 mb-2 inline-block"
-              >
-                ← Back to home
-              </Link>
-              <h1 className="text-3xl font-bold text-gray-900">Photo Viewer</h1>
-              <p className="text-gray-600 mt-1">
-                {filteredPhotos.length} of {photos.length} photos
-              </p>
-            </div>
-
-            <div className="flex gap-4">
-              <Link
-                href="/collections"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Collections
-              </Link>
-              <Link
-                href="/duplicates"
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Find Duplicates
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-4">
+          <p className="text-sm text-gray-600">
+            {filteredPhotos.length > 0
+              ? `Showing ${startIndex + 1}-${Math.min(endIndex, filteredPhotos.length)} of ${filteredPhotos.length} photos`
+              : 'No photos found'
+            }
+          </p>
+        </div>
         {/* Filters */}
         <FilterBar
           availableTags={availableTags}
@@ -149,10 +133,33 @@ export default function ViewerPage() {
         />
 
         {/* Photo Grid */}
-        <PhotoGrid
-          photos={filteredPhotos}
+        <MasonryPhotoGrid
+          photos={paginatedPhotos}
           onPhotoClick={setSelectedPhoto}
         />
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 font-semibold"
+            >
+              ← Previous
+            </button>
+            <span className="text-sm text-gray-900 font-semibold">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 font-semibold"
+            >
+              Next →
+            </button>
+          </div>
+        )}
 
         {/* Photo Modal */}
         <PhotoViewer
