@@ -54,7 +54,7 @@ export default function ConnectStoragePage() {
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
               {/* Dropbox */}
-              <div className="p-6 bg-white rounded-lg shadow-md border-2 border-transparent hover:border-indigo-400 transition-all cursor-pointer">
+              <div className="p-6 bg-white rounded-lg shadow-md border-2 border-transparent hover:border-indigo-400 transition-all">
                 <div className="w-16 h-16 mx-auto mb-3 bg-blue-600 rounded-lg flex items-center justify-center">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 1.807L0 5.629l6 3.822 6.001-3.822L6 1.807zM18 1.807l-6 3.822 6 3.822 6-3.822-6-3.822zM0 13.274l6 3.822 6.001-3.822L6 9.452l-6 3.822zM18 9.452l-6 3.822 6 3.822 6-3.822-6-3.822zM6 18.371l6.001 3.822 6-3.822-6-3.822L6 18.371z"/>
@@ -62,10 +62,16 @@ export default function ConnectStoragePage() {
                 </div>
                 <p className="font-semibold text-gray-900">Dropbox</p>
                 <p className="text-sm text-gray-600 mt-1">Photos & Videos</p>
-                <div className="mt-3">
+                <div className="mt-3 space-y-2">
                   <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
                     Connected
                   </span>
+                  <Link
+                    href="/viewer/dropbox"
+                    className="block w-full px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors text-center"
+                  >
+                    View Photos
+                  </Link>
                 </div>
               </div>
 

@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function GetStartedPage() {
   const router = useRouter();
   const [accessToken, setAccessToken] = useState('');
+  const [username, setUsername] = useState('monica');
   const [error, setError] = useState('');
   const [isValidating, setIsValidating] = useState(false);
 
@@ -19,26 +20,39 @@ export default function GetStartedPage() {
       return;
     }
 
+    if (!username.trim()) {
+      setError('Please enter your username');
+      return;
+    }
+
     setIsValidating(true);
 
-    // Store token in localStorage
     try {
-      localStorage.setItem('dropbox_access_token', accessToken);
+      // Call login API to create session
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: accessToken, username }),
+      });
 
-      // Redirect to connect storage page
-      setTimeout(() => {
-        router.push('/connect-storage');
-      }, 500);
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Invalid credentials. Please check your access code and username.');
+        setIsValidating(false);
+        return;
+      }
+
+      // Redirect to user's viewer page
+      router.push(data.redirectUrl);
     } catch (err) {
-      setError('Failed to save code. Please try again.');
+      setError('Failed to connect. Please try again.');
       setIsValidating(false);
     }
   };
 
   const handleViewDemo = () => {
-    // Clear any existing token
-    localStorage.removeItem('dropbox_access_token');
-    router.push('/viewer');
+    router.push('/demo/viewer');
   };
 
   return (
@@ -74,6 +88,21 @@ export default function GetStartedPage() {
 
             <form onSubmit={handleTokenSubmit}>
               <div className="mb-4">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                  Username
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 placeholder:text-gray-400"
+                  disabled={isValidating}
+                />
+              </div>
+
+              <div className="mb-4">
                 <label htmlFor="token" className="block text-sm font-medium text-gray-700 mb-2">
                   Access Code
                 </label>
@@ -83,20 +112,23 @@ export default function GetStartedPage() {
                   value={accessToken}
                   onChange={(e) => setAccessToken(e.target.value)}
                   placeholder="Enter your access code..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 placeholder:text-gray-400"
                   disabled={isValidating}
                 />
-                {error && (
-                  <p className="mt-2 text-sm text-red-600">{error}</p>
-                )}
                 <p className="mt-2 text-xs text-gray-500">
                   This code was provided to you by your organizer
                 </p>
               </div>
 
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
+
               <button
                 type="submit"
-                disabled={isValidating || !accessToken.trim()}
+                disabled={isValidating || !accessToken.trim() || !username.trim()}
                 className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
               >
                 {isValidating ? 'Validating...' : 'Continue →'}
@@ -129,7 +161,7 @@ export default function GetStartedPage() {
                     <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    <span>18 sample photos</span>
+                    <span>Sample photos</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">

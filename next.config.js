@@ -16,7 +16,15 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: '**.dl.dropboxusercontent.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com',
       },
     ],
   },
