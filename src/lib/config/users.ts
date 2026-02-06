@@ -9,12 +9,14 @@
 interface UserConfig {
   accessCode: string;
   dropboxToken: string;
+  dropboxRefreshToken?: string;
 }
 
 export const USER_CONFIG: Record<string, UserConfig> = {
   monica: {
     accessCode: process.env.MONICA_ACCESS_CODE || '',
     dropboxToken: process.env.MONICA_DROPBOX_TOKEN || process.env.DROPBOX_ACCESS_TOKEN || '',
+    dropboxRefreshToken: process.env.MONICA_DROPBOX_REFRESH_TOKEN || '',
   },
 };
 
@@ -34,4 +36,9 @@ export function validateAccessCode(username: string, accessCode: string): boolea
 export function getDropboxToken(username: string): string | null {
   const config = getUserConfig(username);
   return config?.dropboxToken || null;
+}
+
+export function getDropboxRefreshToken(username: string): string | null {
+  const config = getUserConfig(username);
+  return config?.dropboxRefreshToken || null;
 }

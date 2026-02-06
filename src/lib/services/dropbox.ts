@@ -80,9 +80,14 @@ export interface BatchMoveResult {
 
 const DROPBOX_API_BASE = 'https://api.dropboxapi.com/2';
 const DROPBOX_CONTENT_API_BASE = 'https://content.dropboxapi.com/2';
+const DROPBOX_OAUTH_BASE = 'https://api.dropbox.com/oauth2';
 
 // Supported image file extensions
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.heic', '.gif', '.webp', '.bmp', '.tiff'];
+
+// In-memory token cache (lost on server restart)
+// Maps username -> access token
+const tokenCache = new Map<string, string>();
 
 /**
  * Check if filename is an image based on extension
@@ -93,10 +98,195 @@ function isImageFile(filename: string): boolean {
 }
 
 /**
+ * Count photos in a folder without loading full metadata
+ * Much faster than listPhotos since it doesn't fetch thumbnails or temporary links
+ *
+ * @param accessToken - Dropbox access token
+ * @param folderPath - Path to folder to count
+ * @returns Total count of image files
+ */
+export async function countPhotos(
+  accessToken: string,
+  folderPath: string
+): Promise<number> {
+  let totalCount = 0;
+  let cursor: string | undefined = undefined;
+  let hasMore = true;
+
+  console.log(`Counting photos in: ${folderPath}`);
+
+  while (hasMore) {
+    const response = await fetch(
+      cursor
+        ? `${DROPBOX_API_BASE}/files/list_folder/continue`
+        : `${DROPBOX_API_BASE}/files/list_folder`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          cursor
+            ? { cursor }
+            : {
+                path: folderPath,
+                recursive: true,
+                include_media_info: false, // Don't need media info for counting
+              }
+        ),
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Dropbox API error: ${response.status} - ${error}`);
+    }
+
+    const data: ListFolderResponse = await response.json();
+
+    // Count only image files
+    const imageCount = data.entries.filter(
+      (file) => file['.tag'] === 'file' && isImageFile(file.name)
+    ).length;
+
+    totalCount += imageCount;
+    hasMore = data.has_more;
+    cursor = data.cursor;
+  }
+
+  console.log(`Total photos in ${folderPath}: ${totalCount}`);
+  return totalCount;
+}
+
+/**
+ * Refresh an expired access token using the refresh token
+ * Returns the new access token
+ */
+export async function refreshAccessToken(refreshToken: string): Promise<string> {
+  const appKey = process.env.DROPBOX_APP_KEY;
+  const appSecret = process.env.DROPBOX_APP_SECRET;
+
+  if (!appKey || !appSecret) {
+    throw new Error('Dropbox app credentials not configured');
+  }
+
+  const response = await fetch(`${DROPBOX_OAUTH_BASE}/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `Basic ${Buffer.from(`${appKey}:${appSecret}`).toString('base64')}`,
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Failed to refresh token: ${response.status} - ${error}`);
+  }
+
+  const data = await response.json();
+  return data.access_token;
+}
+
+/**
+ * Get the current access token for a user, using cache if available
+ */
+export function getAccessToken(username: string, fallbackToken: string): string {
+  return tokenCache.get(username) || fallbackToken;
+}
+
+/**
+ * Update the cached access token for a user
+ */
+export function updateAccessToken(username: string, newToken: string): void {
+  tokenCache.set(username, newToken);
+  console.log(`Token refreshed for user: ${username}`);
+}
+
+/**
+ * Wrapper for Dropbox API calls with automatic token refresh on 401
+ *
+ * @param username - User making the request (for token cache)
+ * @param accessToken - Current access token
+ * @param refreshToken - Refresh token (if available)
+ * @param makeRequest - Function that makes the actual API call
+ * @returns Response from the API call with refresh metadata
+ */
+export async function withTokenRefresh<T>(
+  username: string,
+  accessToken: string,
+  refreshToken: string | null,
+  makeRequest: (token: string) => Promise<T>
+): Promise<{ data: T; tokenRefreshed: boolean }> {
+  try {
+    // Try with current token
+    const currentToken = getAccessToken(username, accessToken);
+    const data = await makeRequest(currentToken);
+    return { data, tokenRefreshed: false };
+  } catch (error) {
+    // Check if it's a 401 error
+    if (error instanceof Error && error.message.includes('401')) {
+      if (!refreshToken) {
+        throw new Error('Access token expired and no refresh token available. Please re-authenticate.');
+      }
+
+      console.log(`🔄 Access token expired for ${username}, refreshing...`);
+
+      // Refresh the token
+      const newAccessToken = await refreshAccessToken(refreshToken);
+      updateAccessToken(username, newAccessToken);
+
+      console.log(`✅ Token refreshed successfully for ${username}`);
+
+      // Retry with new token
+      const data = await makeRequest(newAccessToken);
+      return { data, tokenRefreshed: true };
+    }
+
+    // Not a 401 error, rethrow
+    throw error;
+  }
+}
+
+/**
  * List photos from Dropbox with cursor-based pagination
  * Keeps fetching until we have at least 100 photos or run out of results
+ *
+ * @param accessToken - Dropbox access token
+ * @param folderPath - Path to folder to list
+ * @param cursor - Pagination cursor
+ * @param username - Username for token refresh (optional)
+ * @param refreshToken - Refresh token for auto-refresh (optional)
  */
 export async function listPhotos(
+  accessToken: string,
+  folderPath: string = '',
+  cursor?: string,
+  username?: string,
+  refreshToken?: string | null
+): Promise<DropboxPhotoResponse | { data: DropboxPhotoResponse; tokenRefreshed: boolean }> {
+  // If username and refreshToken provided, use auto-refresh wrapper
+  if (username && refreshToken) {
+    return withTokenRefresh(
+      username,
+      accessToken,
+      refreshToken,
+      (token) => listPhotosInternal(token, folderPath, cursor)
+    );
+  }
+
+  // Otherwise, use direct call (backward compatible)
+  return listPhotosInternal(accessToken, folderPath, cursor);
+}
+
+/**
+ * Internal implementation of listPhotos
+ */
+async function listPhotosInternal(
   accessToken: string,
   folderPath: string = '',
   cursor?: string

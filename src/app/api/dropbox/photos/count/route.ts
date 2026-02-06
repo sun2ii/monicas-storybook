@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { batchMoveFiles, withTokenRefresh } from '@/lib/services/dropbox';
+import { countPhotos, withTokenRefresh } from '@/lib/services/dropbox';
 import { getSession } from '@/lib/session/auth';
 import { getDropboxToken, getDropboxRefreshToken } from '@/lib/config/users';
 
 /**
- * POST /api/dropbox/move-batch
+ * GET /api/dropbox/photos/count
  *
- * Batch move photos to duplicates folder
- * Creates folder if it doesn't exist
- * Returns detailed success/failure info for each file
+ * Get total count of photos in the user's folder
  * Requires active session
  */
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   // Get session
   const session = await getSession();
 
@@ -26,6 +24,10 @@ export async function POST(request: NextRequest) {
   const token = getDropboxToken(session.username);
   const refreshToken = getDropboxRefreshToken(session.username);
 
+  // Get folder path from query params or use default
+  const folderParam = request.nextUrl.searchParams.get('folder');
+  const folderPath = folderParam || process.env.DROPBOX_PHOTOS_FOLDER || '/Camera Uploads (1)';
+
   if (!token) {
     return NextResponse.json(
       { error: 'User configuration error: No Dropbox token found' },
@@ -34,36 +36,19 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json();
-    const { paths, destinationFolder } = body;
-
-    // Validate request
-    if (!Array.isArray(paths) || paths.length === 0) {
-      return NextResponse.json(
-        { error: 'Invalid request: paths must be a non-empty array' },
-        { status: 400 }
-      );
-    }
-
-    if (typeof destinationFolder !== 'string' || !destinationFolder) {
-      return NextResponse.json(
-        { error: 'Invalid request: destinationFolder is required' },
-        { status: 400 }
-      );
-    }
-
-    console.log(`Moving ${paths.length} files to ${destinationFolder}`);
-
-    // Perform batch move with automatic token refresh
-    const { data: result, tokenRefreshed } = await withTokenRefresh(
+    // Count photos with automatic token refresh
+    const { data: count, tokenRefreshed } = await withTokenRefresh(
       session.username,
       token,
       refreshToken,
-      (currentToken) => batchMoveFiles(currentToken, paths, destinationFolder)
+      (currentToken) => countPhotos(currentToken, folderPath)
     );
 
-    // Return results with refresh status
-    const response = NextResponse.json({ ...result, tokenRefreshed });
+    const response = NextResponse.json({
+      count,
+      folderPath,
+      tokenRefreshed,
+    });
 
     // Add header for developer visibility
     if (tokenRefreshed) {
@@ -72,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error('Batch move error:', error);
+    console.error('Photo count error:', error);
 
     // Check if it's an authentication error
     if (error instanceof Error && error.message.includes('401')) {
@@ -83,7 +68,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Failed to move files' },
+      { error: 'Failed to count photos' },
       { status: 500 }
     );
   }

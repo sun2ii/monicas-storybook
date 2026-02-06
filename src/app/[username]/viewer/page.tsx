@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Navigation from '@/components/Navigation';
+import Toast from '@/components/Toast';
 import { DropboxPhoto } from '@/lib/services/dropbox';
 
 export default function UserViewerPage() {
@@ -14,6 +15,13 @@ export default function UserViewerPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<DropboxPhoto | null>(null);
+  const [showToast, setShowToast] = useState(false);
+
+  // Total photo count is eventually consistent, not a source of truth.
+  // It's an approximation that reconciles asynchronously.
+  // User actions update visible state immediately, counts update later.
+  const [totalPhotoCount, setTotalPhotoCount] = useState<number | null>(null);
+  const [duplicatesCount, setDuplicatesCount] = useState<number | null>(null);
 
   // Pagination state
   const [currentCursor, setCurrentCursor] = useState<string | null>(null);
@@ -26,6 +34,52 @@ export default function UserViewerPage() {
   const [movingPhotoIds, setMovingPhotoIds] = useState<Set<string>>(new Set());
   const [movedPhotoIds, setMovedPhotoIds] = useState<Set<string>>(new Set());
   const [hideDuplicates, setHideDuplicates] = useState(false);
+
+  // Cache key and expiry (24 hours)
+  const CACHE_KEY = `photo_counts_${username}`;
+  const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+  // Format number with commas
+  function formatNumber(num: number): string {
+    return num.toLocaleString('en-US');
+  }
+
+  // Get cached counts if available and not expired
+  function getCachedCounts(): { total: number; duplicates: number } | null {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+
+      const { total, duplicates, timestamp } = JSON.parse(cached);
+      const age = Date.now() - timestamp;
+
+      if (age > CACHE_EXPIRY_MS) {
+        console.log('📦 Cache expired, will fetch fresh counts');
+        localStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+
+      console.log('✅ Using cached counts:', { total, duplicates });
+      return { total, duplicates };
+    } catch (err) {
+      console.error('Error reading cache:', err);
+      return null;
+    }
+  }
+
+  // Save counts to cache
+  function setCachedCounts(total: number, duplicates: number) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        total,
+        duplicates,
+        timestamp: Date.now(),
+      }));
+      console.log('💾 Counts cached successfully');
+    } catch (err) {
+      console.error('Error caching counts:', err);
+    }
+  }
 
   async function fetchPhotos(cursor: string | null = null) {
     try {
@@ -52,6 +106,12 @@ export default function UserViewerPage() {
       setPhotos(data.photos);
       setCurrentCursor(data.cursor);
       setHasMore(data.has_more);
+
+      // Show toast if token was refreshed
+      if (data.tokenRefreshed) {
+        console.log('🔄 Token was refreshed during this request');
+        setShowToast(true);
+      }
     } catch (err) {
       console.error('Error fetching photos:', err);
       setError('Failed to load photos. Please try again.');
@@ -60,9 +120,82 @@ export default function UserViewerPage() {
     }
   }
 
-  // Initial load
+  // Fetch and cache both counts
+  // Note: Cache is already checked by caller (useEffect), no need to check again
+  async function fetchAndCacheCounts() {
+    // Fetch from API
+    try {
+      console.log('📊 Fetching photo counts from API...');
+
+      // Fetch both counts in parallel
+      const [totalRes, duplicatesRes] = await Promise.all([
+        fetch('/api/dropbox/photos/count'),
+        fetch('/api/dropbox/photos/count?folder=/Camera Uploads (1)/duplicates'),
+      ]);
+
+      let totalCount = 0;
+      let duplicatesCountValue = 0;
+
+      // Process total count
+      if (totalRes.ok) {
+        const totalData = await totalRes.json();
+        totalCount = totalData.count;
+        console.log('✅ Total photo count received:', totalCount);
+
+        if (totalData.tokenRefreshed) {
+          console.log('🔄 Token was refreshed during count request');
+          setShowToast(true);
+        }
+      } else {
+        console.error('❌ Failed to fetch photo count:', totalRes.status);
+      }
+
+      // Process duplicates count
+      if (duplicatesRes.ok) {
+        const duplicatesData = await duplicatesRes.json();
+        duplicatesCountValue = duplicatesData.count;
+        console.log('✅ Duplicates count received:', duplicatesCountValue);
+
+        if (duplicatesData.tokenRefreshed) {
+          console.log('🔄 Token was refreshed during duplicates count');
+          setShowToast(true);
+        }
+      } else {
+        console.log('Duplicates folder not found or empty');
+      }
+
+      // Update state
+      setTotalPhotoCount(totalCount);
+      setDuplicatesCount(duplicatesCountValue);
+
+      // Cache the results
+      setCachedCounts(totalCount, duplicatesCountValue);
+
+    } catch (err) {
+      console.error('❌ Error fetching photo counts:', err);
+      // Set defaults on error
+      setTotalPhotoCount(0);
+      setDuplicatesCount(0);
+    }
+  }
+
+  // Initial load - photos first (critical), counts in background (informational)
   useEffect(() => {
+    // Synchronously check cache ONCE (instant, non-blocking)
+    const cached = getCachedCounts();
+    if (cached) {
+      setTotalPhotoCount(cached.total);
+      setDuplicatesCount(cached.duplicates);
+      console.log('✅ Using cached counts immediately');
+    }
+
+    // Load photos (critical path - don't wait for anything)
     fetchPhotos();
+
+    // Load counts in background (non-blocking, only if not cached)
+    if (!cached) {
+      fetchAndCacheCounts();
+    }
   }, []);
 
   // Toggle photo selection
@@ -76,6 +209,13 @@ export default function UserViewerPage() {
       }
       return next;
     });
+  }
+
+  // Invalidate cache and refresh counts
+  async function refreshCounts() {
+    console.log('🔄 Invalidating cache and refreshing counts...');
+    localStorage.removeItem(CACHE_KEY);
+    await fetchAndCacheCounts();
   }
 
   // Move selected photos to duplicates folder
@@ -111,6 +251,11 @@ export default function UserViewerPage() {
         photos.filter((p) => result.success.includes(p.path)).map((p) => p.id)
       );
       setMovedPhotoIds((prev) => new Set([...prev, ...successIds]));
+
+      // Refresh counts after moving (invalidate cache)
+      if (result.success.length > 0) {
+        refreshCounts();
+      }
 
       // Show notification
       if (result.failed.length > 0) {
@@ -219,9 +364,18 @@ export default function UserViewerPage() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Photos</h1>
             <p className="text-sm text-gray-600">
               {photos.length > 0
-                ? `Page ${currentPage} • Showing ${visiblePhotos.length} photo${visiblePhotos.length !== 1 ? 's' : ''}`
+                ? totalPhotoCount !== null
+                  ? `Page ${currentPage} • Showing ${formatNumber(visiblePhotos.length)} of ${formatNumber(totalPhotoCount)} photo${totalPhotoCount !== 1 ? 's' : ''}`
+                  : `Page ${currentPage} • Showing ${formatNumber(visiblePhotos.length)} photo${visiblePhotos.length !== 1 ? 's' : ''}`
+                : totalPhotoCount !== null && totalPhotoCount > 0
+                ? `${formatNumber(totalPhotoCount)} photo${totalPhotoCount !== 1 ? 's' : ''} available`
                 : 'No photos found in your Dropbox'}
             </p>
+            {duplicatesCount !== null && (
+              <p className="text-xs text-gray-500 mt-1">
+                {formatNumber(duplicatesCount)} photo{duplicatesCount !== 1 ? 's' : ''} in duplicates folder
+              </p>
+            )}
           </div>
           <div className="flex items-center gap-4">
             <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
@@ -494,6 +648,15 @@ export default function UserViewerPage() {
           </p>
         </div>
       </footer>
+
+      {/* Token Refresh Toast */}
+      {showToast && (
+        <Toast
+          message="Connection refreshed successfully"
+          type="info"
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </div>
   );
 }

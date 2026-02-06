@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { listPhotos, getTemporaryLink, getThumbnail, DropboxPhoto } from '@/lib/services/dropbox';
+import { listPhotos, getTemporaryLink, getThumbnail, DropboxPhoto, withTokenRefresh } from '@/lib/services/dropbox';
 import { getSession } from '@/lib/session/auth';
-import { getDropboxToken } from '@/lib/config/users';
+import { getDropboxToken, getDropboxRefreshToken } from '@/lib/config/users';
 
 /**
  * GET /api/dropbox/photos
@@ -20,8 +20,9 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Get token from user config
+  // Get token and refresh token from user config
   const token = getDropboxToken(session.username);
+  const refreshToken = getDropboxRefreshToken(session.username);
   const folderPath = process.env.DROPBOX_PHOTOS_FOLDER || '/Camera Uploads (1)';
 
   // Get cursor from query parameters for pagination
@@ -35,8 +36,24 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Track if token was refreshed during any API call
+    let tokenWasRefreshed = false;
+
     // List photos from Dropbox with cursor-based pagination
-    const result = await listPhotos(token, folderPath, cursor || undefined);
+    // Pass username and refreshToken for automatic token refresh if expired
+    const resultOrWrapped = await listPhotos(
+      token,
+      folderPath,
+      cursor || undefined,
+      session.username,
+      refreshToken
+    );
+
+    // Handle wrapped response (with refresh metadata) or direct response
+    const result = 'data' in resultOrWrapped ? resultOrWrapped.data : resultOrWrapped;
+    if ('tokenRefreshed' in resultOrWrapped && resultOrWrapped.tokenRefreshed) {
+      tokenWasRefreshed = true;
+    }
 
     console.log(`Found ${result.photos.length} photos, has_more: ${result.has_more}`);
 
@@ -50,11 +67,28 @@ export async function GET(request: NextRequest) {
         batch.map(async (file) => {
           try {
             // Fetch both thumbnail and full URL in parallel
-            const [thumbnailUrl, url] = await Promise.all([
-              getThumbnail(token, file.path, 'w256h256'),
-              getTemporaryLink(token, file.path),
+            // Wrap in token refresh to handle expired tokens
+            const [thumbnailResult, urlResult] = await Promise.all([
+              withTokenRefresh(
+                session.username,
+                token,
+                refreshToken,
+                (currentToken) => getThumbnail(currentToken, file.path, 'w256h256')
+              ),
+              withTokenRefresh(
+                session.username,
+                token,
+                refreshToken,
+                (currentToken) => getTemporaryLink(currentToken, file.path)
+              ),
             ]);
-            return { ...file, thumbnailUrl, url };
+
+            // Track if any refresh happened
+            if (thumbnailResult.tokenRefreshed || urlResult.tokenRefreshed) {
+              tokenWasRefreshed = true;
+            }
+
+            return { ...file, thumbnailUrl: thumbnailResult.data, url: urlResult.data };
           } catch (error) {
             console.error(`Failed to get URLs for ${file.path}:`, error);
             return { ...file, url: '', thumbnailUrl: '' };
@@ -69,12 +103,20 @@ export async function GET(request: NextRequest) {
 
     console.log(`Successfully loaded ${validPhotos.length} photos with thumbnails and URLs`);
 
-    // Return photos with pagination info
-    return NextResponse.json({
+    // Return photos with pagination info and refresh status
+    const response = NextResponse.json({
       photos: validPhotos,
       cursor: result.cursor,
       has_more: result.has_more,
+      tokenRefreshed: tokenWasRefreshed,
     });
+
+    // Add header for developer visibility
+    if (tokenWasRefreshed) {
+      response.headers.set('X-Token-Refreshed', 'true');
+    }
+
+    return response;
   } catch (error) {
     console.error('Dropbox API error:', error);
 
