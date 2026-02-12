@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Navigation from '@/components/Navigation';
 import Toast from '@/components/Toast';
@@ -34,6 +34,34 @@ export default function UserViewerPage() {
   const [movingPhotoIds, setMovingPhotoIds] = useState<Set<string>>(new Set());
   const [movedPhotoIds, setMovedPhotoIds] = useState<Set<string>>(new Set());
   const [hideDuplicates, setHideDuplicates] = useState(false);
+
+  // Date filter state
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+
+  // Client-side date filtering using useMemo (instant, no API calls)
+  const filteredPhotos = useMemo(() => {
+    if (!startDate && !endDate) return photos;
+
+    return photos.filter((photo) => {
+      if (!photo.client_modified) return false;
+
+      const photoDate = new Date(photo.client_modified);
+
+      if (startDate) {
+        const start = new Date(startDate);
+        if (photoDate < start) return false;
+      }
+
+      if (endDate) {
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        if (photoDate > end) return false;
+      }
+
+      return true;
+    });
+  }, [photos, startDate, endDate]);
 
   // Cache key and expiry (24 hours)
   const CACHE_KEY = `photo_counts_${username}`;
@@ -86,6 +114,7 @@ export default function UserViewerPage() {
       setLoading(true);
       setError(null);
 
+      // Build URL with query parameters
       const url = cursor
         ? `/api/dropbox/photos?cursor=${encodeURIComponent(cursor)}`
         : '/api/dropbox/photos';
@@ -218,6 +247,19 @@ export default function UserViewerPage() {
     await fetchAndCacheCounts();
   }
 
+  // Apply date filter (instant - no API call needed, useMemo handles it)
+  function handleApplyDateFilter() {
+    // Filter happens automatically via useMemo
+    // No need to reset pagination - we're filtering the current page
+  }
+
+  // Clear date filter (instant - no API call needed)
+  function handleClearDateFilter() {
+    setStartDate('');
+    setEndDate('');
+    // Filter removal happens automatically via useMemo
+  }
+
   // Move selected photos to duplicates folder
   async function handleMoveToDuplicates() {
     const selectedPaths = photos
@@ -304,20 +346,20 @@ export default function UserViewerPage() {
     fetchPhotos(prevCursor || null);
   }
 
-  // Navigate between photos in modal
+  // Navigate between photos in modal (within filtered/visible set)
   const handleNextPhoto = () => {
     if (!selectedPhoto) return;
-    const currentIndex = photos.findIndex((p) => p.id === selectedPhoto.id);
-    if (currentIndex < photos.length - 1) {
-      setSelectedPhoto(photos[currentIndex + 1]);
+    const currentIndex = visiblePhotos.findIndex((p) => p.id === selectedPhoto.id);
+    if (currentIndex < visiblePhotos.length - 1) {
+      setSelectedPhoto(visiblePhotos[currentIndex + 1]);
     }
   };
 
   const handlePreviousPhoto = () => {
     if (!selectedPhoto) return;
-    const currentIndex = photos.findIndex((p) => p.id === selectedPhoto.id);
+    const currentIndex = visiblePhotos.findIndex((p) => p.id === selectedPhoto.id);
     if (currentIndex > 0) {
-      setSelectedPhoto(photos[currentIndex - 1]);
+      setSelectedPhoto(visiblePhotos[currentIndex - 1]);
     }
   };
 
@@ -349,7 +391,7 @@ export default function UserViewerPage() {
   }
 
   // Filter photos based on hide duplicates toggle
-  const visiblePhotos = photos.filter(
+  const visiblePhotos = filteredPhotos.filter(
     (p) => !hideDuplicates || !movedPhotoIds.has(p.id)
   );
 
@@ -388,6 +430,58 @@ export default function UserViewerPage() {
               Hide Duplicates
             </label>
           </div>
+        </div>
+
+        {/* Date Filter Controls */}
+        <div className="mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4">
+            <div className="flex-1">
+              <label htmlFor="startDate" className="block text-sm font-medium text-gray-900 mb-1">
+                Start Date
+              </label>
+              <input
+                id="startDate"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="endDate" className="block text-sm font-medium text-gray-900 mb-1">
+                End Date
+              </label>
+              <input
+                id="endDate"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={handleApplyDateFilter}
+                disabled={!startDate && !endDate}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium whitespace-nowrap"
+              >
+                Apply Filter
+              </button>
+              {(startDate || endDate) && (
+                <button
+                  onClick={handleClearDateFilter}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium whitespace-nowrap"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+          {(startDate || endDate) && (
+            <p className="mt-2 text-sm text-gray-900 font-medium">
+              Filtering photos {startDate && `from ${startDate}`} {startDate && endDate && '—'} {endDate && `to ${endDate}`}
+            </p>
+          )}
         </div>
 
         {/* Photo Grid */}
@@ -564,7 +658,7 @@ export default function UserViewerPage() {
             </button>
 
             {/* Previous Button */}
-            {photos.findIndex((p) => p.id === selectedPhoto.id) > 0 && (
+            {visiblePhotos.findIndex((p) => p.id === selectedPhoto.id) > 0 && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -612,8 +706,8 @@ export default function UserViewerPage() {
             </div>
 
             {/* Next Button */}
-            {photos.findIndex((p) => p.id === selectedPhoto.id) <
-              photos.length - 1 && (
+            {visiblePhotos.findIndex((p) => p.id === selectedPhoto.id) <
+              visiblePhotos.length - 1 && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();

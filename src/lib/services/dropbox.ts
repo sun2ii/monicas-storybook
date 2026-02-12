@@ -13,6 +13,7 @@ export interface DropboxPhoto {
   width?: number;       // From media_info
   height?: number;      // From media_info
   size: number;         // File size in bytes
+  client_modified?: string; // ISO timestamp when file was last modified on client
 }
 
 export interface DropboxPhotoResponse {
@@ -21,12 +22,18 @@ export interface DropboxPhotoResponse {
   has_more: boolean;
 }
 
+export interface DateRange {
+  start?: string; // ISO date string (YYYY-MM-DD)
+  end?: string;   // ISO date string (YYYY-MM-DD)
+}
+
 interface DropboxFileMetadata {
   '.tag': string;
   id: string;
   name: string;
   path_display: string;
   size: number;
+  client_modified?: string; // ISO timestamp when file was last modified on client
   media_info?: {
     '.tag': string;
     metadata?: {
@@ -295,8 +302,8 @@ async function listPhotosInternal(
   let currentCursor = cursor;
   let hasMore = true;
 
-  // Keep fetching pages until we have 50 photos or run out
-  while (allPhotos.length < 50 && hasMore) {
+  // Keep fetching pages until we have 250 photos or run out
+  while (allPhotos.length < 250 && hasMore) {
     const response = await fetch(
       currentCursor
         ? `${DROPBOX_API_BASE}/files/list_folder/continue`
@@ -344,6 +351,7 @@ async function listPhotosInternal(
       width: file.media_info?.metadata?.dimensions?.width,
       height: file.media_info?.metadata?.dimensions?.height,
       size: file.size,
+      client_modified: file.client_modified,
     })));
 
     hasMore = data.has_more;
@@ -352,11 +360,11 @@ async function listPhotosInternal(
 
   console.log(`Total photos accumulated: ${allPhotos.length}`);
 
-  // Return up to 50 photos with pagination info
+  // Return up to 250 photos with pagination info
   return {
-    photos: allPhotos.slice(0, 50),
+    photos: allPhotos.slice(0, 250),
     cursor: currentCursor,
-    has_more: hasMore || allPhotos.length > 50,
+    has_more: hasMore || allPhotos.length > 250,
   };
 }
 
